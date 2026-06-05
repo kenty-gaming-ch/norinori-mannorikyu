@@ -1,47 +1,68 @@
-function showGame() {
-  document.getElementById("menu").style.display = "none";
-  document.getElementById("game").style.display = "flex";
+function showGame(){
+
+  document
+    .getElementById("menu")
+    .classList.add("hidden");
+
+  document
+    .getElementById("game")
+    .classList.remove("hidden");
 }
 
-function setTurn() {
-  document.getElementById("turn").textContent =
-    game.turn === "ai"
-      ? "AIの番"
-      : "あなたの番";
+function setTurn(){
+
+  document
+    .getElementById("turn")
+    .textContent =
+      game.turn === "player"
+      ? "あなたの番"
+      : "AIの番";
 }
 
-function finishGame() {
-  document.getElementById("overlay")
-    .classList.add("show");
+function finishGame(){
 
-  document.getElementById("result").textContent =
-    game.phrase.slice(0, 5) + "\n" +
-    game.phrase.slice(5, 12) + "\n" +
-    game.phrase.slice(12, 17);
+  document
+    .getElementById("overlay")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("result")
+    .textContent =
+      game.phrase.slice(0,5) + "\n" +
+      game.phrase.slice(5,12) + "\n" +
+      game.phrase.slice(12,17);
 }
 
-function copyX() {
+function copyX(){
+
   const text =
 `#ノリノリ万利休
+
 ${game.phrase.slice(0,5)}
 ${game.phrase.slice(5,12)}
 ${game.phrase.slice(12,17)}`;
 
   window.open(
     "https://x.com/intent/tweet?text=" +
-      encodeURIComponent(text),
+    encodeURIComponent(text),
     "_blank"
   );
 }
 
-function resetGame() {
+function resetGame(){
   location.reload();
 }
 
 document
   .getElementById("input")
-  .addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
+  .addEventListener("keydown",(e)=>{
+
+    if(e.key === "Enter"){
+
       submitChar();
+
+      document
+        .getElementById("input")
+        .focus();
     }
-  });
+});
