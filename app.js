@@ -7,37 +7,35 @@ let game = {
 };
 
 /* -----------------------
-   ゲーム開始
+   開始
 ------------------------*/
 function startGame(mode) {
   game.mode = mode;
-  game.started = true;
   game.phrase = "";
   game.step = 0;
+  game.started = true;
 
   document.getElementById("menu").classList.add("hidden");
   document.getElementById("game").classList.remove("hidden");
 
-  updateUI();
-
-  // 先攻後攻制御
-  if (mode === "senkou") {
-    game.turn = "player";
-  } else {
-    game.turn = "ai";
-    setTimeout(aiMove, 300); // AI初手
-  }
+  document.getElementById("input").focus();
 
   setTurn();
+
+  if (mode === "koukou") {
+    setTimeout(aiMove, 300);
+  }
 }
 
 /* -----------------------
-   UI更新
+   UI（縦書き）
 ------------------------*/
 function updateUI() {
-  document.getElementById("line1").textContent = game.phrase.slice(0, 5);
-  document.getElementById("line2").textContent = game.phrase.slice(5, 12);
-  document.getElementById("line3").textContent = game.phrase.slice(12, 17);
+  const chars = game.phrase.split("");
+
+  document.getElementById("line1").textContent = chars.slice(0, 5).join("\n");
+  document.getElementById("line2").textContent = chars.slice(5, 12).join("\n");
+  document.getElementById("line3").textContent = chars.slice(12, 17).join("\n");
 }
 
 /* -----------------------
@@ -45,15 +43,20 @@ function updateUI() {
 ------------------------*/
 function setTurn() {
   document.getElementById("turn").textContent =
-    game.turn === "ai"
-      ? "AIの番"
-      : game.turn === "player"
-      ? "あなたの番"
-      : "";
+    game.turn === "ai" ? "AIの番" : "あなたの番";
 }
 
 /* -----------------------
-   プレイヤー入力
+   Enterで送信
+------------------------*/
+document.getElementById("input").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    submitChar();
+  }
+});
+
+/* -----------------------
+   入力
 ------------------------*/
 function submitChar() {
   const input = document.getElementById("input");
@@ -66,7 +69,6 @@ function submitChar() {
   game.step++;
   input.value = "";
 
-  updateUI();
   nextTurn();
 }
 
@@ -90,19 +92,15 @@ function nextTurn() {
 }
 
 /* -----------------------
-   AI（暫定ランダム1文字）
+   AI（暫定ランダム）
 ------------------------*/
 async function aiMove() {
-  if (game.step >= 17) return;
-
-  // 🔥 暫定：ランダムひらがな
   const chars = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん";
   const char = chars[Math.floor(Math.random() * chars.length)];
 
   game.phrase += char;
   game.step++;
 
-  updateUI();
   nextTurn();
 }
 
@@ -118,9 +116,9 @@ function finishGame() {
     game.phrase.slice(12, 17);
 
   document.getElementById("result").textContent = result;
-  document.getElementById("overlay").classList.add("show");
+  document.getElementById("overlay").classList.remove("hidden");
 
-  setTurn();
+  document.getElementById("turn").textContent = "";
 }
 
 /* -----------------------
@@ -128,7 +126,7 @@ function finishGame() {
 ------------------------*/
 function copyX() {
   const text =
-`#ひらがなはいく
+`#ノリノリ万利休
 ${game.phrase.slice(0,5)}
 ${game.phrase.slice(5,12)}
 ${game.phrase.slice(12,17)}`;
@@ -141,17 +139,5 @@ ${game.phrase.slice(12,17)}`;
    リセット
 ------------------------*/
 function resetGame() {
-  game = {
-    mode: null,
-    phrase: "",
-    step: 0,
-    turn: "ai",
-    started: false
-  };
-
-  document.getElementById("overlay").classList.remove("show");
-  document.getElementById("menu").classList.remove("hidden");
-  document.getElementById("game").classList.add("hidden");
-
-  updateUI();
+  location.reload();
 }
