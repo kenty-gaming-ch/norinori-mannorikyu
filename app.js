@@ -12,16 +12,27 @@ let game = {
 function startGame(mode) {
   game.mode = mode;
   game.started = true;
+  game.phrase = "";
+  game.step = 0;
 
   document.getElementById("menu").classList.add("hidden");
   document.getElementById("game").classList.remove("hidden");
 
+  updateUI();
+
+  // 先攻後攻制御
+  if (mode === "senkou") {
+    game.turn = "player";
+  } else {
+    game.turn = "ai";
+    setTimeout(aiMove, 300); // AI初手
+  }
+
   setTurn();
-  if (game.turn === "ai") aiMove();
 }
 
 /* -----------------------
-   表示更新
+   UI更新
 ------------------------*/
 function updateUI() {
   document.getElementById("line1").textContent = game.phrase.slice(0, 5);
@@ -73,30 +84,20 @@ function nextTurn() {
   game.turn = game.turn === "ai" ? "player" : "ai";
   setTurn();
 
-  if (game.turn === "ai") aiMove();
+  if (game.turn === "ai") {
+    setTimeout(aiMove, 300);
+  }
 }
 
 /* -----------------------
-   AI（1文字生成）
+   AI（暫定ランダム1文字）
 ------------------------*/
 async function aiMove() {
   if (game.step >= 17) return;
 
-  const res = await fetch("/api/haiku", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      input: game.phrase,
-      mode: game.mode
-    })
-  });
-
-  const data = await res.json();
-  const char = data.haiku || "";
-
-  if (!char) return;
+  // 🔥 暫定：ランダムひらがな
+  const chars = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん";
+  const char = chars[Math.floor(Math.random() * chars.length)];
 
   game.phrase += char;
   game.step++;
@@ -117,15 +118,13 @@ function finishGame() {
     game.phrase.slice(12, 17);
 
   document.getElementById("result").textContent = result;
-
-  const overlay = document.getElementById("overlay");
-  overlay.classList.add("show");
+  document.getElementById("overlay").classList.add("show");
 
   setTurn();
 }
 
 /* -----------------------
-   X投稿用コピー
+   X投稿
 ------------------------*/
 function copyX() {
   const text =
@@ -134,9 +133,7 @@ ${game.phrase.slice(0,5)}
 ${game.phrase.slice(5,12)}
 ${game.phrase.slice(12,17)}`;
 
-  const encoded = encodeURIComponent(text);
-  const url = `https://x.com/intent/tweet?text=${encoded}`;
-
+  const url = "https://x.com/intent/tweet?text=" + encodeURIComponent(text);
   window.open(url, "_blank");
 }
 
@@ -157,4 +154,4 @@ function resetGame() {
   document.getElementById("game").classList.add("hidden");
 
   updateUI();
-}}
+}
