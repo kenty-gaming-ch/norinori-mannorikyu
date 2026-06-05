@@ -17,8 +17,10 @@ function startGame(mode) {
 
   updateUI();
 
-  // ★先攻後攻の正しい初期化
   if (mode === "senkou") {
+    // ★先攻＝プレイヤーなので step をずらす
+    game.step = 1;
+
     setTurn();
   } else {
     setTimeout(aiMove, 300);
