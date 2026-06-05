@@ -2,8 +2,8 @@ body {
   margin: 0;
   height: 100vh;
   overflow: hidden;
-  background: #f6f0e6;
   font-family: "Yu Mincho", serif;
+  background: #f6f0e6;
 
   display: flex;
   justify-content: center;
@@ -31,15 +31,19 @@ body {
 }
 
 /* ゲーム画面 */
-canvas {
-  width: min(90vw, 420px);
-  height: auto;
-  max-height: 60vh;
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
-.stage {
-  width: 100%;
-  overflow: hidden;
+/* Canvas（重要：JSと一致） */
+canvas {
+  width: min(90vw, 420px);
+  height: 520px;
+  background: #fffaf2;
+  border: 1px solid rgba(0,0,0,0.2);
 }
 
 /* 入力 */
@@ -47,14 +51,23 @@ input {
   font-size: 20px;
   width: 60px;
   text-align: center;
+  border: none;
+  border-bottom: 1px solid #333;
+  background: transparent;
+  outline: none;
 }
 
-/* overlay */
+/* ターン */
+.turn {
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+/* 完成 */
 .overlay {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.6);
-
   display: none;
   justify-content: center;
   align-items: center;
