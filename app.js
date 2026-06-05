@@ -7,9 +7,9 @@ let game = {
 
 let canvas, ctx;
 
-/* -----------------------
+/* =========================
    開始
-------------------------*/
+========================= */
 function startGame(mode) {
   game.mode = mode;
   game.phrase = "";
@@ -21,7 +21,6 @@ function startGame(mode) {
   canvas = document.getElementById("canvas");
   ctx = canvas.getContext("2d");
 
-  // ★超重要：これがないと真っ白
   canvas.width = 420;
   canvas.height = 520;
 
@@ -36,48 +35,43 @@ function startGame(mode) {
   }
 }
 
-/* -----------------------
+/* =========================
    背景
-------------------------*/
+========================= */
 function drawBase() {
   ctx.fillStyle = "#fffaf2";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-/* -----------------------
+/* =========================
    描画（575分割）
-------------------------*/
+========================= */
 function render() {
   drawBase();
 
-  const chars = game.phrase.split("");
+  const c = game.phrase.split("");
 
-  // 上の句（5）
-  drawColumn(chars.slice(0, 5), 300);
-
-  // 中の句（7）
-  drawColumn(chars.slice(5, 12), 200);
-
-  // 下の句（5）
-  drawColumn(chars.slice(12, 17), 100);
+  drawColumn(c.slice(0, 5), 300);
+  drawColumn(c.slice(5, 12), 220);
+  drawColumn(c.slice(12, 17), 140);
 }
 
 /* 縦書き列 */
 function drawColumn(chars, x) {
-  chars.forEach((c, i) => {
+  chars.forEach((ch, i) => {
     ctx.font = "28px Yu Mincho";
     ctx.fillStyle = "rgba(20,20,20,0.85)";
 
-    const jitterX = (Math.random() - 0.5) * 2;
-    const jitterY = (Math.random() - 0.5) * 2;
+    const dx = (Math.random() - 0.5) * 2;
+    const dy = (Math.random() - 0.5) * 2;
 
-    ctx.fillText(c, x + jitterX, 60 + i * 40 + jitterY);
+    ctx.fillText(ch, x + dx, 60 + i * 42 + dy);
   });
 }
 
-/* -----------------------
+/* =========================
    入力
-------------------------*/
+========================= */
 document.getElementById("input").addEventListener("keydown", (e) => {
   if (e.key === "Enter") submitChar();
 });
@@ -95,31 +89,32 @@ function submitChar() {
 
   input.value = "";
 
-  afterMove();
+  render();
+  nextTurn();
 }
 
-/* -----------------------
+/* =========================
    AI
-------------------------*/
+========================= */
 function aiMove() {
   if (game.step >= 17) return;
   if (game.turn !== "ai") return;
 
   const chars = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん";
-  const char = chars[Math.floor(Math.random() * chars.length)];
 
-  game.phrase += char;
+  const ch = chars[Math.floor(Math.random() * chars.length)];
+
+  game.phrase += ch;
   game.step++;
 
-  afterMove();
+  render();
+  nextTurn();
 }
 
-/* -----------------------
-   共通
-------------------------*/
-function afterMove() {
-  render();
-
+/* =========================
+   ターン制御
+========================= */
+function nextTurn() {
   if (game.step >= 17) {
     finishGame();
     return;
@@ -133,29 +128,29 @@ function afterMove() {
   }
 }
 
-/* -----------------------
-   ターン表示
-------------------------*/
+/* =========================
+   表示
+========================= */
 function setTurn() {
   document.getElementById("turn").textContent =
     game.turn === "ai" ? "AIの番" : "あなたの番";
 }
 
-/* -----------------------
+/* =========================
    完成
-------------------------*/
+========================= */
 function finishGame() {
   document.getElementById("overlay").classList.add("show");
 
   document.getElementById("result").textContent =
-    game.phrase.slice(0,5) + "\n" +
-    game.phrase.slice(5,12) + "\n" +
-    game.phrase.slice(12,17);
+    game.phrase.slice(0, 5) + "\n" +
+    game.phrase.slice(5, 12) + "\n" +
+    game.phrase.slice(12, 17);
 }
 
-/* -----------------------
-   X
-------------------------*/
+/* =========================
+   X投稿
+========================= */
 function copyX() {
   const text =
 `#ノリノリ万利休
@@ -163,12 +158,15 @@ ${game.phrase.slice(0,5)}
 ${game.phrase.slice(5,12)}
 ${game.phrase.slice(12,17)}`;
 
-  window.open("https://x.com/intent/tweet?text=" + encodeURIComponent(text));
+  window.open(
+    "https://x.com/intent/tweet?text=" + encodeURIComponent(text),
+    "_blank"
+  );
 }
 
-/* -----------------------
+/* =========================
    リセット
-------------------------*/
+========================= */
 function resetGame() {
   location.reload();
 }
