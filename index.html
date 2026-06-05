@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ひらがなはいく</title>
+  <title>ノリノリ万利休</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -14,29 +14,28 @@
   <button onclick="startGame('koukou')">こうこう（AI先攻）</button>
 </div>
 
-<!-- ゲーム本体 -->
+<!-- ゲーム -->
 <div id="game" class="hidden">
 
-  <div class="title">ひらがなはいく</div>
+  <div class="title">ノリノリ万利休</div>
 
-  <!-- 575枠 -->
-  <div class="haiku">
-    <div class="line" id="line1"></div>
-    <div class="line" id="line2"></div>
-    <div class="line" id="line3"></div>
+  <!-- 575（縦書き） -->
+  <div class="haiku-vertical">
+    <div id="line1" class="vline"></div>
+    <div id="line2" class="vline"></div>
+    <div id="line3" class="vline"></div>
   </div>
 
   <div id="turn" class="turn"></div>
 
-  <!-- 入力 -->
+  <!-- 入力（Enter送信） -->
   <div class="input-area">
     <input id="input" type="text" maxlength="1" placeholder="ひらがな1文字" />
-    <button onclick="submitChar()">うたう</button>
   </div>
 
 </div>
 
-<!-- 完成オーバーレイ -->
+<!-- 完成画面 -->
 <div id="overlay" class="overlay hidden">
   <div class="complete">しゅうりょう</div>
   <div id="result" class="result"></div>
