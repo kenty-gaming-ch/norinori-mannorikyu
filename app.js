@@ -85,3 +85,17 @@ async function aiMove() {
   updateUI();
   nextTurn();
 }
+
+function nextTurn() {
+  updateUI();
+
+  if (game.step >= 17) {
+    finishGame();
+    return;
+  }
+
+  game.turn = game.turn === "ai" ? "player" : "ai";
+  setTurn();
+
+  if (game.turn === "ai") aiMove();
+}
