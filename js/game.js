@@ -1,40 +1,52 @@
 let game = {
-  mode: null,
+  mode: "",
   phrase: "",
   step: 0,
-  turn: "ai"
+  turn: "player"
 };
 
-function startGame(mode) {
+function startGame(mode){
+
   game.mode = mode;
   game.phrase = "";
   game.step = 0;
 
   showGame();
 
-  setupCanvas();
+  render();
 
   game.turn =
     mode === "senkou"
-      ? "player"
-      : "ai";
+    ? "player"
+    : "ai";
 
   setTurn();
 
-  if (game.turn === "ai") {
-    setTimeout(aiMove, 400);
+  if(game.turn === "ai"){
+
+    setTimeout(aiMove,500);
   }
+
+  document
+    .getElementById("input")
+    .focus();
 }
 
-function submitChar() {
-  if (game.step >= 17) return;
-  if (game.turn !== "player") return;
+function submitChar(){
 
-  const input = document.getElementById("input");
+  if(game.turn !== "player"){
+    return;
+  }
 
-  const char = input.value.trim();
+  const input =
+    document.getElementById("input");
 
-  if (!char) return;
+  const char =
+    input.value.trim();
+
+  if(!char){
+    return;
+  }
 
   game.phrase += char;
   game.step++;
@@ -42,23 +54,27 @@ function submitChar() {
   input.value = "";
 
   render();
+
   nextTurn();
 }
 
-function nextTurn() {
-  if (game.step >= 17) {
+function nextTurn(){
+
+  if(game.step >= 17){
+
     finishGame();
     return;
   }
 
   game.turn =
-    game.turn === "ai"
-      ? "player"
-      : "ai";
+    game.turn === "player"
+    ? "ai"
+    : "player";
 
   setTurn();
 
-  if (game.turn === "ai") {
-    setTimeout(aiMove, 400);
+  if(game.turn === "ai"){
+
+    setTimeout(aiMove,500);
   }
 }
