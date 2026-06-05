@@ -1,80 +1,42 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ひらがなはいくげーむ</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ひらがなはいく</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-  <div class="app">
+<!-- モード選択（最初だけ表示） -->
+<div id="menu" class="menu">
+  <button onclick="startGame('senkou')">せんこう</button>
+  <button onclick="startGame('koukou')">こうこう</button>
+  <button onclick="startGame('random')">らんだむ</button>
+</div>
 
-    <!-- タイトル -->
-    <header class="title">
-      ひらがなはいくげーむ
-    </header>
+<!-- ゲーム本体 -->
+<div id="game" class="hidden">
 
-    <!-- モード選択 -->
-    <nav class="mode">
-      <button>せんこう</button>
-      <button>こうこう</button>
-      <button>らんだむ</button>
-    </nav>
+  <div class="title">ひらがなはいく</div>
 
-    <!-- メイン領域 -->
-    <div class="main">
-
-      <!-- 左：履歴 -->
-      <section class="log">
-
-        <div class="entry player">
-          <div class="label">あなた</div>
-          <div class="haiku">
-            よるのえきに<br>
-            ひとりたたずむ<br>
-            かげひとつ
-          </div>
-        </div>
-
-        <div class="entry ai">
-          <div class="label">AI</div>
-          <div class="haiku">
-            しずかなまどに<br>
-            ひかりながれて<br>
-            かぜゆれる
-          </div>
-        </div>
-
-      </section>
-
-      <!-- 右：例文 -->
-      <aside class="example">
-        <div class="example-title">れいぶん</div>
-
-        <div class="example-box">
-          よるのまちに<br>
-          ひかりがにじむ<br>
-          あめのいろ
-        </div>
-
-        <div class="example-box">
-          かぜふいて<br>
-          きおくながれる<br>
-          しろいそら
-        </div>
-      </aside>
-
-    </div>
-
-    <!-- 入力 -->
-    <footer class="input-area">
-      <input type="text" placeholder="ひらがなでうたう..." />
-      <button>うたう</button>
-    </footer>
-
+  <!-- 575枠 -->
+  <div class="haiku">
+    <div class="line" id="line1"></div>
+    <div class="line" id="line2"></div>
+    <div class="line" id="line3"></div>
   </div>
+
+  <div id="turn" class="turn"></div>
+
+  <!-- 入力 -->
+  <div class="input-area">
+    <input id="input" type="text" maxlength="1" placeholder="ひらがな1文字" />
+    <button onclick="submitChar()">うたう</button>
+  </div>
+
+</div>
+
 <script src="app.js"></script>
 </body>
 </html>
