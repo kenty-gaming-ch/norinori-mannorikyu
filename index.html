@@ -4,46 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ノリノリ万利休</title>
-
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-<!-- 和紙背景レイヤー -->
 <div class="paper"></div>
 
-<!-- メニュー -->
 <div id="menu" class="menu">
   <div class="title">ノリノリ万利休</div>
   <button onclick="startGame('senkou')">せんこう</button>
   <button onclick="startGame('koukou')">こうこう</button>
 </div>
 
-<!-- ゲーム -->
 <div id="game" class="hidden stage">
 
-  <div class="title ink">ノリノリ万利休</div>
+  <div class="title">ノリノリ万利休</div>
 
-  <!-- 縦書き俳句（右→左） -->
-  <div class="haiku">
-
-    <div class="column">
-      <div class="label">上の句</div>
-      <div id="line1" class="vline"></div>
-    </div>
-
-    <div class="column">
-      <div class="label">中の句</div>
-      <div id="line2" class="vline"></div>
-    </div>
-
-    <div class="column">
-      <div class="label">下の句</div>
-      <div id="line3" class="vline"></div>
-    </div>
-
-  </div>
+  <!-- ★ここがCanvas化 -->
+  <canvas id="canvas"></canvas>
 
   <div id="turn" class="turn"></div>
 
@@ -53,19 +32,11 @@
 
 </div>
 
-<!-- 完成画面（掛け軸風） -->
 <div id="overlay" class="overlay">
   <div class="kakejiku">
-
-    <div class="seal">◯ 完</div>
-
     <div id="result" class="result"></div>
-
-    <div class="actions">
-      <button onclick="copyX()">Xに投句</button>
-      <button onclick="resetGame()">もう一度</button>
-    </div>
-
+    <button onclick="copyX()">Xに投句</button>
+    <button onclick="resetGame()">もう一度</button>
   </div>
 </div>
 
