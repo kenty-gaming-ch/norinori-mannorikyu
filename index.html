@@ -8,18 +8,18 @@
 </head>
 <body>
 
-<!-- モード選択 -->
+<!-- メニュー -->
 <div id="menu" class="menu">
-  <button onclick="startGame('senkou')">せんこう（あなた先攻）</button>
-  <button onclick="startGame('koukou')">こうこう（AI先攻）</button>
+  <button onclick="startGame('senkou')">せんこう（あなた）</button>
+  <button onclick="startGame('koukou')">こうこう（AI）</button>
 </div>
 
-<!-- ゲーム -->
+<!-- ゲーム本体 -->
 <div id="game" class="hidden">
 
   <div class="title">ノリノリ万利休</div>
 
-  <!-- 575（縦書き） -->
+  <!-- 575 縦書き -->
   <div class="haiku-vertical">
     <div id="line1" class="vline"></div>
     <div id="line2" class="vline"></div>
@@ -28,7 +28,6 @@
 
   <div id="turn" class="turn"></div>
 
-  <!-- 入力（Enter送信） -->
   <div class="input-area">
     <input id="input" type="text" maxlength="1" placeholder="ひらがな1文字" />
   </div>
@@ -36,7 +35,7 @@
 </div>
 
 <!-- 完成画面 -->
-<div id="overlay" class="overlay hidden">
+<div id="overlay" class="overlay">
   <div class="complete">しゅうりょう</div>
   <div id="result" class="result"></div>
 
