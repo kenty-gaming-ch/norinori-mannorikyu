@@ -1,7 +1,6 @@
 function showGame() {
   document.getElementById("menu").style.display = "none";
-
-  document.getElementById("game").classList.remove("hidden");
+  document.getElementById("game").style.display = "flex";
 }
 
 function setTurn() {
