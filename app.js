@@ -1,8 +1,7 @@
 let game = {
   mode: null,
   phrase: "",
-  step: 0,
-  turn: "ai"
+  step: 0
 };
 
 /* -----------------------
@@ -18,18 +17,23 @@ function startGame(mode) {
 
   updateUI();
 
+  // ★先攻後攻の正しい初期化
   if (mode === "senkou") {
-    game.turn = "player";
+    setTurn();
   } else {
-    game.turn = "ai";
     setTimeout(aiMove, 300);
   }
-
-  setTurn();
 }
 
 /* -----------------------
-   UI更新（縦書き）
+   ターン計算（超重要修正）
+------------------------*/
+function getTurn() {
+  return game.step % 2 === 0 ? "ai" : "player";
+}
+
+/* -----------------------
+   UI更新
 ------------------------*/
 function updateUI() {
   const c = game.phrase.split("");
@@ -43,12 +47,14 @@ function updateUI() {
    ターン表示
 ------------------------*/
 function setTurn() {
+  const t = getTurn();
+
   document.getElementById("turn").textContent =
-    game.turn === "ai" ? "AIの番" : "あなたの番";
+    t === "ai" ? "AIの番" : "あなたの番";
 }
 
 /* -----------------------
-   Enter送信
+   入力（Enter）
 ------------------------*/
 document.getElementById("input").addEventListener("keydown", (e) => {
   if (e.key === "Enter") submitChar();
@@ -58,23 +64,45 @@ document.getElementById("input").addEventListener("keydown", (e) => {
    プレイヤー入力
 ------------------------*/
 function submitChar() {
+  if (game.step >= 17) return;
+
+  const turn = getTurn();
+  if (turn !== "player") return;
+
   const input = document.getElementById("input");
   const char = input.value.trim();
 
   if (!char) return;
-  if (game.turn !== "player") return;
 
   game.phrase += char;
   game.step++;
   input.value = "";
 
-  nextTurn();
+  afterMove();
 }
 
 /* -----------------------
-   ターン進行
+   AI
 ------------------------*/
-function nextTurn() {
+function aiMove() {
+  if (game.step >= 17) return;
+
+  const turn = getTurn();
+  if (turn !== "ai") return;
+
+  const chars = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん";
+  const char = chars[Math.floor(Math.random() * chars.length)];
+
+  game.phrase += char;
+  game.step++;
+
+  afterMove();
+}
+
+/* -----------------------
+   共通処理（超重要）
+------------------------*/
+function afterMove() {
   updateUI();
 
   if (game.step >= 17) {
@@ -82,33 +110,17 @@ function nextTurn() {
     return;
   }
 
-  game.turn = game.turn === "ai" ? "player" : "ai";
   setTurn();
 
-  if (game.turn === "ai") {
+  if (getTurn() === "ai") {
     setTimeout(aiMove, 300);
   }
-}
-
-/* -----------------------
-   AI（暫定ランダム）
-------------------------*/
-function aiMove() {
-  const chars = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん";
-  const char = chars[Math.floor(Math.random() * chars.length)];
-
-  game.phrase += char;
-  game.step++;
-
-  nextTurn();
 }
 
 /* -----------------------
    完成
 ------------------------*/
 function finishGame() {
-  game.turn = "end";
-
   const result =
     game.phrase.slice(0,5) + "\n" +
     game.phrase.slice(5,12) + "\n" +
