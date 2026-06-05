@@ -1,13 +1,9 @@
-
-// 履歴データ
 const history = [];
 
-// 要素取得
 const input = document.querySelector(".input-area input");
 const button = document.querySelector(".input-area button");
 const log = document.querySelector(".log");
 
-// 俳句を画面に描画
 function render() {
   log.innerHTML = "";
 
@@ -26,22 +22,37 @@ function render() {
   });
 }
 
-// プレイヤー入力処理
-function addPlayerHaiku() {
+// 🔥 AI呼び出し
+async function getAIHaiku(text) {
+  const res = await fetch("/api/haiku", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ input: text })
+  });
+
+  const data = await res.json();
+  return data.haiku;
+}
+
+// プレイヤー入力
+async function addPlayerHaiku() {
   const text = input.value.trim();
   if (!text) return;
 
-  history.push({
-    speaker: "player",
-    text: text
-  });
+  history.push({ speaker: "player", text });
+  render();
 
   input.value = "";
 
+  // AI呼び出し
+  const ai = await getAIHaiku(text);
+
+  history.push({ speaker: "ai", text: ai });
   render();
 }
 
-// イベント
 button.addEventListener("click", addPlayerHaiku);
 
 input.addEventListener("keydown", (e) => {
