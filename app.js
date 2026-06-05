@@ -15,22 +15,23 @@ function startGame(mode) {
   game.phrase = "";
   game.step = 0;
 
-  document.getElementById("menu").classList.add("hidden");
-  document.getElementById("game").classList.remove("hidden");
+  // ★確実にDOM制御
+  document.getElementById("menu").style.display = "none";
+  document.getElementById("game").style.display = "flex";
 
   canvas = document.getElementById("canvas");
   ctx = canvas.getContext("2d");
 
-  canvas.width = 420;
-  canvas.height = 520;
-
+  resizeCanvas();
   drawBase();
 
   game.turn = (mode === "senkou") ? "player" : "ai";
 
-  if (game.turn === "ai") setTimeout(aiMove, 400);
-
   setTurn();
+
+  if (game.turn === "ai") {
+    setTimeout(aiMove, 400);
+  }
 }
 
 /* -----------------------
