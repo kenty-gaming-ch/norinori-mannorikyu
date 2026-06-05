@@ -2,118 +2,95 @@ let game = {
   mode: null,
   phrase: "",
   step: 0,
-  turn: "ai",
-  started: false
+  turn: "ai"
 };
 
-/* =========================
-   SE（簡易生成音）
-========================= */
-function playSE(type) {
-  const ctx = new (window.AudioContext || window.webkitAudioContext)();
-
-  const osc = ctx.createOscillator();
-  const gain = ctx.createGain();
-
-  osc.connect(gain);
-  gain.connect(ctx.destination);
-
-  if (type === "pon") {
-    osc.frequency.value = 880;
-    gain.gain.value = 0.1;
-    osc.type = "sine";
-
-    osc.start();
-    osc.stop(ctx.currentTime + 0.08);
-  }
-
-  if (type === "suu") {
-    osc.frequency.value = 220;
-    gain.gain.value = 0.08;
-    osc.type = "sine";
-
-    osc.start();
-    osc.stop(ctx.currentTime + 0.2);
-  }
-}
+let canvas, ctx;
 
 /* =========================
-   開始
+   初期化
 ========================= */
 function startGame(mode) {
   game.mode = mode;
   game.phrase = "";
   game.step = 0;
-  game.started = true;
 
   document.getElementById("menu").classList.add("hidden");
   document.getElementById("game").classList.remove("hidden");
 
-  updateUI();
+  canvas = document.getElementById("canvas");
+  ctx = canvas.getContext("2d");
+
+  resizeCanvas();
+  drawBackground();
 
   game.turn = (mode === "senkou") ? "player" : "ai";
-  setTurn();
 
-  if (game.turn === "ai") {
-    setTimeout(aiMove, randomDelay());
-  }
+  if (game.turn === "ai") setTimeout(aiMove, 400);
 }
 
 /* =========================
-   ターン表示
+   Canvasサイズ調整
 ========================= */
-function setTurn() {
-  document.getElementById("turn").textContent =
-    game.turn === "ai" ? "AIの番" : "あなたの番";
+function resizeCanvas() {
+  canvas.width = 420;
+  canvas.height = 520;
 }
 
 /* =========================
-   UI更新（筆フェード）
+   背景（和紙っぽい）
 ========================= */
-function updateUI() {
-  const c = game.phrase.split("");
-
-  renderLine("line1", c.slice(0, 5));
-  renderLine("line2", c.slice(5, 12));
-  renderLine("line3", c.slice(12, 17));
+function drawBackground() {
+  ctx.fillStyle = "#f6f0e6";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-/* ★1文字フェード描画 */
-function renderLine(id, chars) {
-  const el = document.getElementById(id);
-  el.innerHTML = "";
+/* =========================
+   書道描画（核心）
+========================= */
+function drawChar(char, index) {
+  const xBase = canvas.width - 60; // 右から
+  const col = Math.floor(index / 17);
+  const row = index % 17;
 
-  chars.forEach((ch, i) => {
-    const span = document.createElement("span");
-    span.textContent = ch;
+  const x = xBase - col * 120 + random(-2, 2);
+  const y = 40 + row * 28 + random(-1, 1);
 
-    span.style.opacity = "0";
-    span.style.display = "inline-block";
-    span.style.transform = "translateY(6px)";
+  ctx.save();
 
-    el.appendChild(span);
+  ctx.font = "28px Yu Mincho";
+  ctx.fillStyle = "rgba(20,20,20,0.85)";
+  ctx.shadowColor = "rgba(0,0,0,0.15)";
+  ctx.shadowBlur = 3;
 
-    setTimeout(() => {
-      span.style.transition = "all 0.25s ease";
-      span.style.opacity = "1";
-      span.style.transform = "translateY(0)";
-    }, i * 30);
+  // にじみ表現（軽いブラー重ね）
+  ctx.globalAlpha = 0.9;
+
+  ctx.fillText(char, x, y);
+
+  ctx.restore();
+}
+
+/* =========================
+   UI再描画
+========================= */
+function renderAll() {
+  drawBackground();
+
+  [...game.phrase].forEach((c, i) => {
+    drawChar(c, i);
   });
 }
 
 /* =========================
-   Enter入力
+   入力
 ========================= */
 document.getElementById("input").addEventListener("keydown", (e) => {
   if (e.key === "Enter") submitChar();
 });
 
-/* =========================
-   プレイヤー入力
-========================= */
 function submitChar() {
-  if (game.step >= 17) return;
-  if (game.turn !== "player") return;
+  if (game.step >= 17 || game.turn !== "player") return;
 
   const input = document.getElementById("input");
   const char = input.value.trim();
@@ -124,81 +101,54 @@ function submitChar() {
 
   input.value = "";
 
-  playSE("pon");
-  afterMove();
+  renderAll();
+  nextTurn();
 }
 
 /* =========================
-   AI（ランダム＋間）
+   AI
 ========================= */
 function aiMove() {
-  if (game.step >= 17) return;
-  if (game.turn !== "ai") return;
+  if (game.step >= 17 || game.turn !== "ai") return;
 
-  const chars =
-    "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん";
-
+  const chars = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん";
   const char = chars[Math.floor(Math.random() * chars.length)];
 
   game.phrase += char;
   game.step++;
 
-  playSE("suu");
-
-  afterMove();
+  renderAll();
+  nextTurn();
 }
 
 /* =========================
-   共通処理
+   ターン
 ========================= */
-function afterMove() {
-  updateUI();
-
+function nextTurn() {
   if (game.step >= 17) {
     finishGame();
     return;
   }
 
   game.turn = (game.turn === "ai") ? "player" : "ai";
-  setTurn();
 
   if (game.turn === "ai") {
-    setTimeout(aiMove, randomDelay());
+    setTimeout(aiMove, 400 + Math.random() * 400);
   }
 }
 
 /* =========================
-   AIの“間”（0.3〜0.8秒）
-========================= */
-function randomDelay() {
-  return 300 + Math.random() * 500;
-}
-
-/* =========================
-   完成（紙が開く演出）
+   完成
 ========================= */
 function finishGame() {
-  game.turn = "end";
+  document.getElementById("overlay").classList.add("show");
 
-  const overlay = document.getElementById("overlay");
   const result =
-    game.phrase.slice(0, 5) + "\n" +
-    game.phrase.slice(5, 12) + "\n" +
-    game.phrase.slice(12, 17);
+    game.phrase.slice(0,5) + "\n" +
+    game.phrase.slice(5,12) + "\n" +
+    game.phrase.slice(12,17);
 
   document.getElementById("result").textContent = result;
-
-  overlay.style.display = "flex";
-  overlay.style.opacity = "0";
-  overlay.style.transform = "scale(0.95)";
-
-  requestAnimationFrame(() => {
-    overlay.style.transition = "all 0.4s ease";
-    overlay.style.opacity = "1";
-    overlay.style.transform = "scale(1)";
-  });
-
-  playSE("suu");
 }
 
 /* =========================
@@ -211,15 +161,16 @@ ${game.phrase.slice(0,5)}
 ${game.phrase.slice(5,12)}
 ${game.phrase.slice(12,17)}`;
 
-  window.open(
-    "https://x.com/intent/tweet?text=" + encodeURIComponent(text),
-    "_blank"
-  );
+  window.open("https://x.com/intent/tweet?text=" + encodeURIComponent(text));
 }
 
 /* =========================
-   リセット
+   ユーティリティ
 ========================= */
+function random(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
 function resetGame() {
   location.reload();
 }
