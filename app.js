@@ -117,7 +117,9 @@ function finishGame() {
     game.phrase.slice(12, 17);
 
   document.getElementById("result").textContent = result;
-  document.getElementById("overlay").classList.remove("hidden");
+
+  const overlay = document.getElementById("overlay");
+  overlay.classList.add("show");
 
   setTurn();
 }
