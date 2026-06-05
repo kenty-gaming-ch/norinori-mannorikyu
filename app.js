@@ -1,87 +1,87 @@
-const input = document.querySelector(".input-area input");
-const button = document.querySelector(".input-area button");
-const log = document.querySelector(".log");
+let game = {
+  mode: null,
+  phrase: "",
+  step: 0,
+  turn: "ai",
+  started: false
+};
 
-const modeButtons = document.querySelectorAll(".mode button");
-console.log("JS動いてる");
-let history = [];
-let mode = "random"; // senkou / koukou / random
+function startGame(mode) {
+  game.mode = mode;
+  game.started = true;
 
-// モード選択
-modeButtons[0].addEventListener("click", () => mode = "senkou");
-modeButtons[1].addEventListener("click", () => mode = "koukou");
-modeButtons[2].addEventListener("click", () => mode = "random");
+  document.getElementById("menu").classList.add("hidden");
+  document.getElementById("game").classList.remove("hidden");
 
-// 描画
-function render() {
-  log.innerHTML = "";
-
-  history.forEach((item) => {
-    const entry = document.createElement("div");
-    entry.className = "entry " + item.speaker;
-
-    entry.innerHTML = `
-      <div class="label">${item.speaker === "player" ? "あなた" : "AI"}</div>
-      <div class="haiku">
-        ${item.text}
-      </div>
-    `;
-
-    log.appendChild(entry);
-  });
+  setTurn();
+  if (game.turn === "ai") aiMove();
 }
 
-// AI呼び出し
-async function getAIHaiku(playerHaiku) {
+function setTurn() {
+  document.getElementById("turn").textContent =
+    game.turn === "ai" ? "AIの番" : "あなたの番";
+}
+
+function updateUI() {
+  const l1 = game.phrase.slice(0, 5);
+  const l2 = game.phrase.slice(5, 12);
+  const l3 = game.phrase.slice(12, 17);
+
+  document.getElementById("line1").textContent = l1;
+  document.getElementById("line2").textContent = l2;
+  document.getElementById("line3").textContent = l3;
+}
+
+function submitChar() {
+  const input = document.getElementById("input");
+  const char = input.value.trim();
+
+  if (!char) return;
+  if (game.turn !== "player") return;
+
+  game.phrase += char;
+  game.step++;
+  input.value = "";
+
+  updateUI();
+  nextTurn();
+}
+
+function nextTurn() {
+  if (game.step >= 17) {
+    game.turn = "end";
+    setTurn();
+    return;
+  }
+
+  game.turn = game.turn === "ai" ? "player" : "ai";
+  setTurn();
+
+  if (game.turn === "ai") aiMove();
+}
+
+async function aiMove() {
+  if (game.step >= 17) return;
+
   const res = await fetch("/api/haiku", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      input: playerHaiku,
-      mode: mode
+      input: game.phrase,
+      mode: game.mode
     })
   });
 
   const data = await res.json();
-  return data.haiku;
+  const char = data.haiku || "";
+
+  if (!char) return;
+
+  game.phrase += char;
+  game.step++;
+
+  updateUI();
+  nextTurn();
 }
-
-// 俳句追加
-async function addHaiku() {
-  const text = input.value.trim();
-  if (!text) return;
-
-  // プレイヤー追加
-  history.push({
-    speaker: "player",
-    text
-  });
-
-  render();
-  input.value = "";
-
-  // AI生成
-  const ai = await getAIHaiku(text);
-
-  history.push({
-    speaker: "ai",
-    text: ai
-  });
-
-  render();
-}
-
-// イベント
-button.addEventListener("click", addHaiku);
-
-input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    addHaiku();
-  }
-});
-
-button.addEventListener("click", () => {
-  console.log("クリックされた");
-});
