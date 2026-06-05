@@ -6,6 +6,9 @@ let game = {
   started: false
 };
 
+/* -----------------------
+   ゲーム開始
+------------------------*/
 function startGame(mode) {
   game.mode = mode;
   game.started = true;
@@ -17,21 +20,30 @@ function startGame(mode) {
   if (game.turn === "ai") aiMove();
 }
 
+/* -----------------------
+   表示更新
+------------------------*/
+function updateUI() {
+  document.getElementById("line1").textContent = game.phrase.slice(0, 5);
+  document.getElementById("line2").textContent = game.phrase.slice(5, 12);
+  document.getElementById("line3").textContent = game.phrase.slice(12, 17);
+}
+
+/* -----------------------
+   ターン表示
+------------------------*/
 function setTurn() {
   document.getElementById("turn").textContent =
-    game.turn === "ai" ? "AIの番" : "あなたの番";
+    game.turn === "ai"
+      ? "AIの番"
+      : game.turn === "player"
+      ? "あなたの番"
+      : "";
 }
 
-function updateUI() {
-  const l1 = game.phrase.slice(0, 5);
-  const l2 = game.phrase.slice(5, 12);
-  const l3 = game.phrase.slice(12, 17);
-
-  document.getElementById("line1").textContent = l1;
-  document.getElementById("line2").textContent = l2;
-  document.getElementById("line3").textContent = l3;
-}
-
+/* -----------------------
+   プレイヤー入力
+------------------------*/
 function submitChar() {
   const input = document.getElementById("input");
   const char = input.value.trim();
@@ -47,10 +59,14 @@ function submitChar() {
   nextTurn();
 }
 
+/* -----------------------
+   ターン進行
+------------------------*/
 function nextTurn() {
+  updateUI();
+
   if (game.step >= 17) {
-    game.turn = "end";
-    setTurn();
+    finishGame();
     return;
   }
 
@@ -60,6 +76,9 @@ function nextTurn() {
   if (game.turn === "ai") aiMove();
 }
 
+/* -----------------------
+   AI（1文字生成）
+------------------------*/
 async function aiMove() {
   if (game.step >= 17) return;
 
@@ -86,16 +105,52 @@ async function aiMove() {
   nextTurn();
 }
 
-function nextTurn() {
-  updateUI();
+/* -----------------------
+   完成
+------------------------*/
+function finishGame() {
+  game.turn = "end";
 
-  if (game.step >= 17) {
-    finishGame();
-    return;
-  }
+  const result =
+    game.phrase.slice(0, 5) + "\n" +
+    game.phrase.slice(5, 12) + "\n" +
+    game.phrase.slice(12, 17);
 
-  game.turn = game.turn === "ai" ? "player" : "ai";
+  document.getElementById("result").textContent = result;
+  document.getElementById("overlay").classList.remove("hidden");
+
   setTurn();
+}
 
-  if (game.turn === "ai") aiMove();
+/* -----------------------
+   X投稿用コピー
+------------------------*/
+function copyX() {
+  const text =
+`#ひらがなはいく
+${game.phrase.slice(0,5)}
+${game.phrase.slice(5,12)}
+${game.phrase.slice(12,17)}`;
+
+  navigator.clipboard.writeText(text);
+  alert("X投稿用テキストをコピーしました");
+}
+
+/* -----------------------
+   リセット
+------------------------*/
+function resetGame() {
+  game = {
+    mode: null,
+    phrase: "",
+    step: 0,
+    turn: "ai",
+    started: false
+  };
+
+  document.getElementById("overlay").classList.add("hidden");
+  document.getElementById("menu").classList.remove("hidden");
+  document.getElementById("game").classList.add("hidden");
+
+  updateUI();
 }
