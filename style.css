@@ -4,10 +4,6 @@ body {
   overflow: hidden;
   font-family: "Yu Mincho", serif;
   background: #f6f0e6;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .paper {
@@ -23,19 +19,15 @@ body {
 }
 
 /* メニュー */
-.menu {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  text-align: center;
-}
-
-/* ゲーム画面 */
+.menu,
 .stage {
+  position: fixed;
+  inset: 0;
+
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 10px;
 }
 
 /* Canvas（重要：JSと一致） */
@@ -81,4 +73,8 @@ input {
   background: #fff7ec;
   padding: 30px;
   text-align: center;
+}
+
+#game {
+  display: none;
 }
