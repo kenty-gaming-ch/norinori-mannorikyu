@@ -16,7 +16,7 @@ body {
   letter-spacing: 0.2em;
 }
 
-/* モードメニュー */
+/* メニュー */
 .menu {
   display: flex;
   gap: 10px;
@@ -49,7 +49,7 @@ body {
   padding: 5px;
 }
 
-/* ターン表示 */
+/* ターン */
 .turn {
   text-align: center;
   margin-top: 15px;
@@ -75,6 +75,7 @@ button {
   padding: 6px 12px;
 }
 
+/* 完成演出 */
 .overlay {
   position: fixed;
   top: 0;
