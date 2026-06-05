@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<!-- モード選択（最初だけ表示） -->
+<!-- モード選択 -->
 <div id="menu" class="menu">
   <button onclick="startGame('senkou')">せんこう</button>
   <button onclick="startGame('koukou')">こうこう</button>
@@ -35,14 +35,15 @@
     <button onclick="submitChar()">うたう</button>
   </div>
 
-  <div id="overlay" class="overlay hidden">
+</div>
+
+<!-- 完成オーバーレイ -->
+<div id="overlay" class="overlay hidden">
   <div class="complete">しゅうりょう</div>
   <div id="result" class="result"></div>
 
   <button onclick="copyX()">Xにポスト</button>
-  <button onclick="resetGame()">もう一回</button>
-</div>
-
+  <button onclick="resetGame()">もういちど</button>
 </div>
 
 <script src="app.js"></script>
