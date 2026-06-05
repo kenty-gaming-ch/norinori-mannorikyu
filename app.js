@@ -3,7 +3,7 @@ const button = document.querySelector(".input-area button");
 const log = document.querySelector(".log");
 
 const modeButtons = document.querySelectorAll(".mode button");
-
+console.log("JS動いてる");
 let history = [];
 let mode = "random"; // senkou / koukou / random
 
@@ -80,4 +80,8 @@ input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     addHaiku();
   }
+});
+
+button.addEventListener("click", () => {
+  console.log("クリックされた");
 });
