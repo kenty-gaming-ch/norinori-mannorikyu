@@ -2,15 +2,14 @@ body {
   margin: 0;
   height: 100vh;
   overflow: hidden;
-  font-family: "Yu Mincho", serif;
   background: #f6f0e6;
+  font-family: "Yu Mincho", serif;
 
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* 和紙背景（軽量化） */
 .paper {
   position: fixed;
   inset: 0;
@@ -18,7 +17,7 @@ body {
   z-index: -1;
 }
 
-/* 画面制御 */
+/* 表示制御 */
 .hidden {
   display: none;
 }
@@ -27,7 +26,7 @@ body {
 .menu {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   text-align: center;
 }
 
@@ -36,13 +35,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
-/* ★Canvas固定（重要） */
+/* Canvas固定 */
 canvas {
-  display: block;
+  width: 420px;
+  height: 520px;
   border: 1px solid rgba(0,0,0,0.2);
+  background: #fffaf2;
 }
 
 /* 入力 */
@@ -52,7 +53,7 @@ input {
   text-align: center;
 }
 
-/* overlay（安全版） */
+/* overlay */
 .overlay {
   position: fixed;
   inset: 0;
