@@ -15,18 +15,20 @@ function startGame(mode) {
   game.phrase = "";
   game.step = 0;
 
-  // ★確実にDOM制御
   document.getElementById("menu").style.display = "none";
   document.getElementById("game").style.display = "flex";
 
   canvas = document.getElementById("canvas");
   ctx = canvas.getContext("2d");
 
-  resizeCanvas();
+  // ★超重要：これがないと真っ白
+  canvas.width = 420;
+  canvas.height = 520;
+
   drawBase();
+  render();
 
   game.turn = (mode === "senkou") ? "player" : "ai";
-
   setTurn();
 
   if (game.turn === "ai") {
