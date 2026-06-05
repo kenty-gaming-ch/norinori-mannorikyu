@@ -11,31 +11,29 @@
 
 <div class="paper"></div>
 
+<!-- メニュー -->
 <div id="menu" class="menu">
   <div class="title">ノリノリ万利休</div>
   <button onclick="startGame('senkou')">せんこう</button>
   <button onclick="startGame('koukou')">こうこう</button>
 </div>
 
-<div id="game" class="hidden stage">
+<!-- ゲーム -->
+<div id="game" class="stage hidden">
 
-  <div class="title">ノリノリ万利休</div>
-
-  <!-- ★ここがCanvas化 -->
   <canvas id="canvas"></canvas>
 
   <div id="turn" class="turn"></div>
 
-  <div class="input-wrap">
-    <input id="input" type="text" maxlength="1" />
-  </div>
+  <input id="input" type="text" maxlength="1" />
 
 </div>
 
+<!-- 完成 -->
 <div id="overlay" class="overlay">
   <div class="kakejiku">
     <div id="result" class="result"></div>
-    <button onclick="copyX()">Xに投句</button>
+    <button onclick="copyX()">Xに投稿</button>
     <button onclick="resetGame()">もう一度</button>
   </div>
 </div>
