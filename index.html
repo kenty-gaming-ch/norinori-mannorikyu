@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ひらがな俳句ゲーム</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ひらがなはいくげーむ</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -16,35 +16,57 @@
       ひらがなはいくげーむ
     </header>
 
-    <!-- モード選択（まだダミー） -->
-    <div class="mode">
+    <!-- モード選択 -->
+    <nav class="mode">
       <button>せんこう</button>
       <button>こうこう</button>
       <button>らんだむ</button>
+    </nav>
+
+    <!-- メイン領域 -->
+    <div class="main">
+
+      <!-- 左：履歴 -->
+      <section class="log">
+
+        <div class="entry player">
+          <div class="label">あなた</div>
+          <div class="haiku">
+            よるのえきに<br>
+            ひとりたたずむ<br>
+            かげひとつ
+          </div>
+        </div>
+
+        <div class="entry ai">
+          <div class="label">AI</div>
+          <div class="haiku">
+            しずかなまどに<br>
+            ひかりながれて<br>
+            かぜゆれる
+          </div>
+        </div>
+
+      </section>
+
+      <!-- 右：例文 -->
+      <aside class="example">
+        <div class="example-title">れいぶん</div>
+
+        <div class="example-box">
+          よるのまちに<br>
+          ひかりがにじむ<br>
+          あめのいろ
+        </div>
+
+        <div class="example-box">
+          かぜふいて<br>
+          きおくながれる<br>
+          しろいそら
+        </div>
+      </aside>
+
     </div>
-
-    <!-- 履歴（ここがメイン） -->
-    <main class="log">
-
-      <div class="entry player">
-        <div class="label">あなた</div>
-        <div class="haiku">
-          よるのえきに<br>
-          ひとりたたずむ<br>
-          かげひとつ
-        </div>
-      </div>
-
-      <div class="entry ai">
-        <div class="label">AI</div>
-        <div class="haiku">
-          しずかなまどに<br>
-          ひかりながれて<br>
-          かぜゆれる
-        </div>
-      </div>
-
-    </main>
 
     <!-- 入力 -->
     <footer class="input-area">
