@@ -55,6 +55,7 @@ button {
 
 .ku {
   writing-mode: vertical-rl;
+  text-orientation: upright;
 
   font-size: 42px;
 
@@ -64,7 +65,11 @@ button {
 
   padding: 10px;
 
-  letter-spacing: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 6px;
 }
 
 .char {
