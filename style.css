@@ -1,28 +1,15 @@
 body {
   margin: 0;
-  height: 100vh;
-  overflow: hidden;
+  background: #f5f0e6;
   font-family: "Yu Mincho", serif;
-  background: #f6f0e6;
 }
 
-.paper {
-  position: fixed;
-  inset: 0;
-  background: #f6f0e6;
-  z-index: -1;
-}
-
-/* 表示制御 */
 .hidden {
-  display: none;
+  display: none !important;
 }
 
-/* メニュー */
-.menu,
-.stage {
-  position: fixed;
-  inset: 0;
+.screen {
+  min-height: 100vh;
 
   display: flex;
   flex-direction: column;
@@ -30,51 +17,79 @@ body {
   align-items: center;
 }
 
-/* Canvas（重要：JSと一致） */
-canvas {
-  width: min(90vw, 420px);
-  height: 520px;
-  background: #fffaf2;
-  border: 1px solid rgba(0,0,0,0.2);
+button {
+  margin: 8px;
+  padding: 12px 20px;
+  font-size: 18px;
 }
 
-/* 入力 */
-input {
-  font-size: 20px;
-  width: 60px;
+#input {
+  width: 80px;
+  height: 80px;
+
   text-align: center;
-  border: none;
-  border-bottom: 1px solid #333;
-  background: transparent;
-  outline: none;
+
+  font-size: 48px;
+
+  margin-top: 20px;
 }
 
-/* ターン */
-.turn {
-  font-size: 13px;
-  opacity: 0.6;
+#turn {
+  margin-top: 20px;
 }
 
-/* 完成 */
+.haiku {
+  display: flex;
+  flex-direction: row;
+
+  gap: 20px;
+
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.ku {
+  writing-mode: vertical-rl;
+
+  font-size: 42px;
+
+  min-height: 320px;
+
+  border-left: 1px solid #ccc;
+
+  padding: 10px;
+
+  letter-spacing: 6px;
+}
+
+.char {
+  display: block;
+}
+
+.empty {
+  color: #ccc;
+}
+
 .overlay {
   position: fixed;
+
   inset: 0;
+
   background: rgba(0,0,0,0.6);
-  display: none;
+
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.overlay.show {
-  display: flex;
-}
+.result-box {
+  background: white;
 
-.kakejiku {
-  background: #fff7ec;
   padding: 30px;
+
   text-align: center;
 }
 
-#game {
-  display: none;
+pre {
+  font-size: 24px;
 }
