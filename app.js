@@ -2,8 +2,7 @@ let game = {
   mode: null,
   phrase: "",
   step: 0,
-  turn: "ai",
-  started: false
+  turn: "ai"
 };
 
 /* -----------------------
@@ -13,29 +12,31 @@ function startGame(mode) {
   game.mode = mode;
   game.phrase = "";
   game.step = 0;
-  game.started = true;
 
   document.getElementById("menu").classList.add("hidden");
   document.getElementById("game").classList.remove("hidden");
 
-  document.getElementById("input").focus();
+  updateUI();
 
-  setTurn();
-
-  if (mode === "koukou") {
+  if (mode === "senkou") {
+    game.turn = "player";
+  } else {
+    game.turn = "ai";
     setTimeout(aiMove, 300);
   }
+
+  setTurn();
 }
 
 /* -----------------------
-   UI（縦書き）
+   UI更新（縦書き）
 ------------------------*/
 function updateUI() {
-  const chars = game.phrase.split("");
+  const c = game.phrase.split("");
 
-  document.getElementById("line1").textContent = chars.slice(0, 5).join("\n");
-  document.getElementById("line2").textContent = chars.slice(5, 12).join("\n");
-  document.getElementById("line3").textContent = chars.slice(12, 17).join("\n");
+  document.getElementById("line1").textContent = c.slice(0,5).join("\n");
+  document.getElementById("line2").textContent = c.slice(5,12).join("\n");
+  document.getElementById("line3").textContent = c.slice(12,17).join("\n");
 }
 
 /* -----------------------
@@ -47,16 +48,14 @@ function setTurn() {
 }
 
 /* -----------------------
-   Enterで送信
+   Enter送信
 ------------------------*/
 document.getElementById("input").addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    submitChar();
-  }
+  if (e.key === "Enter") submitChar();
 });
 
 /* -----------------------
-   入力
+   プレイヤー入力
 ------------------------*/
 function submitChar() {
   const input = document.getElementById("input");
@@ -94,7 +93,7 @@ function nextTurn() {
 /* -----------------------
    AI（暫定ランダム）
 ------------------------*/
-async function aiMove() {
+function aiMove() {
   const chars = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん";
   const char = chars[Math.floor(Math.random() * chars.length)];
 
@@ -111,12 +110,12 @@ function finishGame() {
   game.turn = "end";
 
   const result =
-    game.phrase.slice(0, 5) + "\n" +
-    game.phrase.slice(5, 12) + "\n" +
-    game.phrase.slice(12, 17);
+    game.phrase.slice(0,5) + "\n" +
+    game.phrase.slice(5,12) + "\n" +
+    game.phrase.slice(12,17);
 
   document.getElementById("result").textContent = result;
-  document.getElementById("overlay").classList.remove("hidden");
+  document.getElementById("overlay").classList.add("show");
 
   document.getElementById("turn").textContent = "";
 }
