@@ -33,6 +33,8 @@ function startGame(mode) {
    Canvasサイズ調整
 ========================= */
 function resizeCanvas() {
+  const canvas = document.getElementById("canvas");
+
   canvas.width = 420;
   canvas.height = 520;
 }
