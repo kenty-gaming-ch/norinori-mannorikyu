@@ -1,1 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ひらがな俳句ゲーム</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+  <div class="app">
+
+    <!-- タイトル -->
+    <header class="title">
+      ひらがなはいくげーむ
+    </header>
+
+    <!-- モード選択（まだダミー） -->
+    <div class="mode">
+      <button>せんこう</button>
+      <button>こうこう</button>
+      <button>らんだむ</button>
+    </div>
+
+    <!-- 履歴（ここがメイン） -->
+    <main class="log">
+
+      <div class="entry player">
+        <div class="label">あなた</div>
+        <div class="haiku">
+          よるのえきに<br>
+          ひとりたたずむ<br>
+          かげひとつ
+        </div>
+      </div>
+
+      <div class="entry ai">
+        <div class="label">AI</div>
+        <div class="haiku">
+          しずかなまどに<br>
+          ひかりながれて<br>
+          かぜゆれる
+        </div>
+      </div>
+
+    </main>
+
+    <!-- 入力 -->
+    <footer class="input-area">
+      <input type="text" placeholder="ひらがなでうたう..." />
+      <button>うたう</button>
+    </footer>
+
+  </div>
+
+</body>
+</html>
