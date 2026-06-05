@@ -56,7 +56,7 @@ ${input}
     });
 
     const data = await response.json();
-
+    console.log(JSON.stringify(data, null, 2));
     let haiku = data.choices?.[0]?.message?.content?.trim() || "";
 
     // 念のため改行除去
