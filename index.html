@@ -1,46 +1,73 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ノリノリ万利休</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="paper"></div>
+<div id="menu" class="screen">
+  <h1>ノリノリ万利休</h1>
 
-<!-- メニュー -->
-<div id="menu" class="menu">
-  <div class="title">ノリノリ万利休</div>
-  <button onclick="startGame('senkou')">せんこう</button>
-  <button onclick="startGame('koukou')">こうこう</button>
+  <button onclick="startGame('senkou')">
+    せんこう
+  </button>
+
+  <button onclick="startGame('koukou')">
+    こうこう
+  </button>
 </div>
 
-<!-- ゲーム -->
-<div id="game" class="stage">
+<div id="game" class="screen hidden">
 
-  <canvas id="canvas"></canvas>
+  <h1>ノリノリ万利休</h1>
 
-  <div id="turn" class="turn"></div>
+  <div id="haiku" class="haiku">
 
-  <input id="input" maxlength="1" />
+    <div id="kami" class="ku"></div>
 
-</div>
+    <div id="naka" class="ku"></div>
 
-<!-- 完成 -->
-<div id="overlay" class="overlay">
-  <div class="kakejiku">
-    <div id="result" class="result"></div>
-    <button onclick="copyX()">Xに投稿</button>
-    <button onclick="resetGame()">もう一度</button>
+    <div id="shimo" class="ku"></div>
+
   </div>
+
+  <div id="turn"></div>
+
+  <input
+    id="input"
+    maxlength="1"
+    autocomplete="off"
+  >
+
 </div>
 
-<script src="js/render.js"></script>
+<div id="overlay" class="overlay hidden">
+
+  <div class="result-box">
+
+    <h2>完成</h2>
+
+    <pre id="result"></pre>
+
+    <button onclick="copyX()">
+      Xに投稿
+    </button>
+
+    <button onclick="resetGame()">
+      もう一度
+    </button>
+
+  </div>
+
+</div>
+
 <script src="js/ai.js"></script>
+<script src="js/render.js"></script>
 <script src="js/game.js"></script>
 <script src="js/ui.js"></script>
+
 </body>
 </html>
