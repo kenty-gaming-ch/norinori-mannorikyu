@@ -134,8 +134,10 @@ ${game.phrase.slice(0,5)}
 ${game.phrase.slice(5,12)}
 ${game.phrase.slice(12,17)}`;
 
-  navigator.clipboard.writeText(text);
-  alert("X投稿用テキストをコピーしました");
+  const encoded = encodeURIComponent(text);
+  const url = `https://x.com/intent/tweet?text=${encoded}`;
+
+  window.open(url, "_blank");
 }
 
 /* -----------------------
@@ -150,9 +152,9 @@ function resetGame() {
     started: false
   };
 
-  document.getElementById("overlay").classList.add("hidden");
+  document.getElementById("overlay").classList.remove("show");
   document.getElementById("menu").classList.remove("hidden");
   document.getElementById("game").classList.add("hidden");
 
   updateUI();
-}
+}}
