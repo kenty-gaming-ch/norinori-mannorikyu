@@ -31,19 +31,15 @@ body {
 }
 
 /* ゲーム画面 */
-.stage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+canvas {
+  width: min(90vw, 420px);
+  height: auto;
+  max-height: 60vh;
 }
 
-/* Canvas固定 */
-canvas {
-  width: 420px;
-  height: 520px;
-  border: 1px solid rgba(0,0,0,0.2);
-  background: #fffaf2;
+.stage {
+  width: 100%;
+  overflow: hidden;
 }
 
 /* 入力 */
