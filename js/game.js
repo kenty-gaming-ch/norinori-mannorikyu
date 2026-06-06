@@ -64,10 +64,7 @@ function nextTurn(){
     return;
   }
 
-  game.turn =
-    game.turn === "player"
-      ? "ai"
-      : "player";
+  game.turn = game.turn === "player" ? "ai" : "player";
 
   setTurn();
 
