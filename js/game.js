@@ -33,23 +33,28 @@ function startGame(mode){
 }
 
 function submitChar(){
-  console.log("PLAYER TURN START", game.turn, game.step);
+
   if(game.turn !== "player") return;
 
-  const input =
-    document.getElementById("input");
-
+  const input = document.getElementById("input");
   const char = input.value.trim();
+
   if(!char) return;
 
   game.phrase += char;
-  game.step++; // ★必ずここ
-  console.log("PLAYER AFTER INPUT", game.turn, game.step, game.phrase);
+  game.step++;
+
   input.value = "";
 
   render();
 
-  nextTurn(); // ★1回だけ呼ぶ
+  // ★ここが最重要
+  if(game.step >= 17){
+    finishGame();
+    return;
+  }
+
+  nextTurn();
 }
 
 function nextTurn(){
