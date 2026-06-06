@@ -23,24 +23,18 @@ function render() {
 
 function drawKu(id, chars, max) {
 
-  const el =
-    document.getElementById(id);
+  const el = document.getElementById(id);
 
-  let html = "";
+  let text = "";
 
-  for(let i=0;i<max;i++){
+  for (let i = 0; i < max; i++) {
 
-    if(chars[i]){
-
-      html +=
-        `<span class="char">${chars[i]}</span>`;
-
-    }else{
-
-      html +=
-        `<span class="char empty">□</span>`;
+    if (chars[i]) {
+      text += chars[i];
+    } else {
+      text += "□";
     }
   }
 
-  el.innerHTML = html;
+  el.textContent = text;
 }
