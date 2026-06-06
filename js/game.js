@@ -2,7 +2,8 @@ let game = {
   mode: "",
   phrase: "",
   step: 0,
-  turn: "player"
+  turn: "player",
+  finished: false
 };
 
 function startGame(mode){
@@ -34,6 +35,8 @@ function startGame(mode){
 
 function submitChar(){
 
+  if(game.finished) return; // ★追加
+
   if(game.turn !== "player") return;
 
   const input = document.getElementById("input");
@@ -47,7 +50,7 @@ function submitChar(){
 
   render();
 
-  checkFinish(); // ★ここ必須
+  checkFinish();
 
   if(game.step < 17){
     nextTurn();
@@ -55,6 +58,8 @@ function submitChar(){
 }
 
 function nextTurn(){
+
+  if(game.finished) return; // ★追加
 
   game.turn =
     game.turn === "player"
@@ -71,6 +76,7 @@ function nextTurn(){
 function checkFinish(){
 
   if(game.step >= 17){
+    game.finished = true;
     finishGame();
   }
 }
