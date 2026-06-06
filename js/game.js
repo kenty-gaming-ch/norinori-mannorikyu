@@ -53,7 +53,7 @@ function submitChar(){
 }
 
 function nextTurn(){
-
+  console.log("NEXT TURN BEFORE", game.turn, game.step);
   if(game.step >= 17){
     finishGame();
     return;
@@ -64,7 +64,7 @@ function nextTurn(){
     game.turn === "player"
       ? "ai"
       : "player";
-
+  console.log("NEXT TURN AFTER SWITCH", game.turn, game.step);
   setTurn();
 
   if(game.turn === "ai"){
