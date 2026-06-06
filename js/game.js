@@ -33,7 +33,7 @@ function startGame(mode){
 }
 
 function submitChar(){
-
+  console.log("PLAYER TURN START", game.turn, game.step);
   if(game.turn !== "player") return;
 
   const input =
@@ -44,7 +44,7 @@ function submitChar(){
 
   game.phrase += char;
   game.step++; // ★必ずここ
-
+  console.log("PLAYER AFTER INPUT", game.turn, game.step, game.phrase);
   input.value = "";
 
   render();
