@@ -109,19 +109,16 @@ button {
 
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
 
   display: none;
 
   justify-content: center;
   align-items: center;
 
-  background: #f7f1e3; /* ★完全遮断（ここ重要） */
+  background: #f7f1e3;
 
-  z-index: 99999;   /* ★絶対に前面 */
+  z-index: 99999;
 }
 
 .overlay.show {
@@ -132,15 +129,15 @@ button {
   writing-mode: vertical-rl;
   text-orientation: upright;
 
-  display: inline-block; /* ★これ重要 */
-
-  margin: 0 auto;
-
-  color: #2b2b2b;
-
   font-size: 42px;
 
   letter-spacing: 6px;
+
+  color: #2b2b2b;
+
+  display: block; /* ★inline-block禁止 */
+
+  margin: 0; /* ★絶対に余白リセット */
 }
 
 .kakejiku {
@@ -155,9 +152,6 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  transform: translateX(0); /* ★念のためズレ防止 */
-  margin: auto;
 }
 
 pre {
