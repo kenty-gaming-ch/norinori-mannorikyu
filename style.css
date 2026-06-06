@@ -65,13 +65,13 @@ button {
 
   min-height: 320px;
 
-  border: none; /* 余計な線は消す */
-
   padding: 10px;
 
-  letter-spacing: 8px;
-
   white-space: pre;
+
+  letter-spacing: 10px;
+
+  display: block;
 }
 
 .char {
