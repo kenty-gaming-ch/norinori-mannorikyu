@@ -13,6 +13,16 @@
   box-sizing: border-box;
 }
 
+.title {
+  text-align: center;
+
+  font-size: 18px;
+
+  letter-spacing: 4px;
+
+  color: #333;
+}
+
 body {
   margin: 0;
   background: #f5f0e6;
@@ -137,9 +147,7 @@ button {
 
   display: block;
 
-  margin: 0;
-
-  line-height: 1.6; /* ★これ追加重要 */
+  margin: 0 auto; /* ★ここ効く */
 }
 
 .kakejiku {
@@ -151,12 +159,12 @@ button {
 
   box-shadow: 0 15px 40px rgba(0,0,0,0.3);
 
-  display: inline-flex;  /* ★ここ重要（flex→inline-flex） */
+  display: flex;
+  flex-direction: column;   /* ★重要 */
 
-  justify-content: center;
-  align-items: center;
+  align-items: center;      /* ★横中央 */
 
-  margin: auto; /* ★保険 */
+  gap: 20px;
 }
 
 pre {
