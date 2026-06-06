@@ -29,7 +29,13 @@ function finishGame(){
     game.phrase.slice(5,12) + "\n" +
     game.phrase.slice(12,17);
 
-  overlay.classList.add("show");
+    overlay.classList.add("show");
+    setTimeout(() => {
+    result.style.transform = "scale(1.02)";
+    setTimeout(() => {
+      result.style.transform = "scale(1)";
+    }, 150);
+  }, 200);
 }
 
 function copyX(){
