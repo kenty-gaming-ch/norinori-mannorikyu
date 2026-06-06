@@ -111,12 +111,25 @@ button {
   display: flex; /* ★これだけでOK */
 }
 
-.result-box {
-  background: white;
+#result {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
 
+  font-size: 42px;
+  letter-spacing: 8px;
+
+  white-space: pre;
+}
+
+.kakejiku {
   padding: 30px;
+  background: #fff7ec;
 
-  text-align: center;
+  border: 2px solid #333;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 pre {
