@@ -65,6 +65,8 @@ button {
 
   min-height: 320px;
 
+  border: none; /* 余計な線は消す */
+
   padding: 10px;
 
   letter-spacing: 8px;
@@ -73,7 +75,7 @@ button {
 }
 
 .char {
-  display: inline-block;
+  display: block;
   opacity: 0;
   transform: translateY(-6px);
   animation: brushIn 0.35s ease forwards;
