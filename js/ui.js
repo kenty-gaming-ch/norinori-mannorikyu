@@ -19,23 +19,19 @@ function setTurn(){
       : "AIの番";
 }
 
-function finishGame() {
+function finishGame(){
 
-  const overlay =
-    document.getElementById("overlay");
-
-  const result =
-    document.getElementById("result");
+  const overlay = document.getElementById("overlay");
+  const result = document.getElementById("result");
 
   result.textContent =
     game.phrase.slice(0,5) + "\n" +
     game.phrase.slice(5,12) + "\n" +
     game.phrase.slice(12,17);
 
-  // 少し“間”を入れる（重要）
   setTimeout(() => {
     overlay.classList.add("show");
-  }, 300);
+  }, 200);
 }
 
 function copyX(){
