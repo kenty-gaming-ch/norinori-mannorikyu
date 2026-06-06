@@ -97,9 +97,17 @@ button {
 }
 
 .overlay {
+  position: fixed;   /* ★最重要 */
+  inset: 0;          /* 上下左右0 */
+
   display: none;
+
   justify-content: center;
   align-items: center;
+
+  background: rgba(0,0,0,0.65);
+
+  z-index: 9999;     /* ★前面固定 */
 }
 
 .overlay.show {
