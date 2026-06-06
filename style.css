@@ -9,6 +9,10 @@
   }
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   background: #f5f0e6;
@@ -110,14 +114,10 @@ button {
 .overlay {
   position: fixed;
   inset: 0;
-
   display: none;
-
   justify-content: center;
   align-items: center;
-
   background: #f7f1e3;
-
   z-index: 99999;
 }
 
@@ -135,9 +135,11 @@ button {
 
   color: #2b2b2b;
 
-  display: block; /* ★inline-block禁止 */
+  display: block;
 
-  margin: 0; /* ★絶対に余白リセット */
+  margin: 0;
+
+  line-height: 1.6; /* ★これ追加重要 */
 }
 
 .kakejiku {
@@ -149,9 +151,12 @@ button {
 
   box-shadow: 0 15px 40px rgba(0,0,0,0.3);
 
-  display: flex;
+  display: inline-flex;  /* ★ここ重要（flex→inline-flex） */
+
   justify-content: center;
   align-items: center;
+
+  margin: auto; /* ★保険 */
 }
 
 pre {
