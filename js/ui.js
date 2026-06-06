@@ -29,7 +29,7 @@ function finishGame(){
     game.phrase.slice(5,12) + "\n" +
     game.phrase.slice(12,17);
 
-  overlay.classList.remove("hidden"); // ★これが正解
+  overlay.classList.add("show");
 }
 
 function copyX(){
