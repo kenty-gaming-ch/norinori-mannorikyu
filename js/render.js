@@ -1,18 +1,29 @@
 function render(){
 
-  const chars = game.phrase.split("");
+  const arr = game.phrase.split("");
 
-  const fill = (from, to) =>
-    chars.slice(from, to).join("") || "□□□□□□□";
+  const kami = [];
+  const naka = [];
+  const shimo = [];
 
-  document.getElementById("kami").textContent =
-    fill(0, 5);
+  // 上の句（5）
+  for(let i=0;i<5;i++){
+    kami.push(arr[i] || "□");
+  }
 
-  document.getElementById("naka").textContent =
-    fill(5, 12);
+  // 中の句（7）
+  for(let i=5;i<12;i++){
+    naka.push(arr[i] || "□");
+  }
 
-  document.getElementById("shimo").textContent =
-    fill(12, 17);
+  // 下の句（5）
+  for(let i=12;i<17;i++){
+    shimo.push(arr[i] || "□");
+  }
+
+  document.getElementById("kami").textContent = kami.join("");
+  document.getElementById("naka").textContent = naka.join("");
+  document.getElementById("shimo").textContent = shimo.join("");
 }
 
 function drawKu(id, chars, max) {
