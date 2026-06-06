@@ -65,11 +65,9 @@ button {
 
   padding: 10px;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  letter-spacing: 8px;
 
-  gap: 6px;
+  white-space: pre;
 }
 
 .char {
