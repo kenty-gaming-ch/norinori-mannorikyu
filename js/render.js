@@ -1,24 +1,18 @@
-function render() {
+function render(){
 
   const chars = game.phrase.split("");
 
-  drawKu(
-    "kami",
-    chars.slice(0, 5),
-    5
-  );
+  const fill = (from, to) =>
+    chars.slice(from, to).join("") || "□□□□□□□";
 
-  drawKu(
-    "naka",
-    chars.slice(5, 12),
-    7
-  );
+  document.getElementById("kami").textContent =
+    fill(0, 5);
 
-  drawKu(
-    "shimo",
-    chars.slice(12, 17),
-    5
-  );
+  document.getElementById("naka").textContent =
+    fill(5, 12);
+
+  document.getElementById("shimo").textContent =
+    fill(12, 17);
 }
 
 function drawKu(id, chars, max) {
