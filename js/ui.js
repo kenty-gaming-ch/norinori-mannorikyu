@@ -29,9 +29,7 @@ function finishGame(){
     game.phrase.slice(5,12) + "\n" +
     game.phrase.slice(12,17);
 
-  setTimeout(() => {
-    overlay.classList.add("show");
-  }, 200);
+  overlay.classList.add("show"); // ★即時でOK
 }
 
 function copyX(){
