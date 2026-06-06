@@ -1,15 +1,18 @@
 const AI_CHARS =
 "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん";
 
-function aiMove() {
+function aiMove(){
+
+  if(game.step >= 17) return;
+
+  if(game.turn !== "ai") return;
 
   const ch =
-    AI_CHARS[
-      Math.floor(Math.random() * AI_CHARS.length)
-    ];
+    AI_CHARS[Math.floor(Math.random() * AI_CHARS.length)];
 
   game.phrase += ch;
-  game.step++;
+
+  game.step++; // ←絶対必要
 
   render();
 
