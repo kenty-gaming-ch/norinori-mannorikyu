@@ -59,6 +59,7 @@ function nextTurn(){
     return;
   }
 
+  // ★ここで必ず交代
   game.turn =
     game.turn === "player"
       ? "ai"
@@ -67,6 +68,6 @@ function nextTurn(){
   setTurn();
 
   if(game.turn === "ai"){
-    setTimeout(aiMove,500);
+    setTimeout(aiMove, 500);
   }
 }
