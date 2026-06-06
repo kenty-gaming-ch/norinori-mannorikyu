@@ -97,17 +97,21 @@ button {
 }
 
 .overlay {
-  position: fixed;   /* ★最重要 */
-  inset: 0;          /* 上下左右0 */
+  position: fixed;
+  inset: 0;
 
   display: none;
-
   justify-content: center;
   align-items: center;
 
-  background: rgba(0,0,0,0.65);
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(0,0,0,0.6),
+      rgba(0,0,0,0.9)
+    );
 
-  z-index: 9999;     /* ★前面固定 */
+  z-index: 9999;
 }
 
 .overlay.show {
@@ -134,11 +138,13 @@ button {
 
   border: 2px solid #333;
 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  transform: translateX(0); /* ★念のためズレ防止 */
 }
 
 pre {
