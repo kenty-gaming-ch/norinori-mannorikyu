@@ -34,28 +34,22 @@ function startGame(mode){
 
 function submitChar(){
 
-  if(game.turn !== "player"){
-    return;
-  }
+  if(game.turn !== "player") return;
 
   const input =
     document.getElementById("input");
 
-  const char =
-    input.value.trim();
-
-  if(!char){
-    return;
-  }
+  const char = input.value.trim();
+  if(!char) return;
 
   game.phrase += char;
-  game.step++;
+  game.step++; // ★必ずここ
 
   input.value = "";
 
   render();
 
-  nextTurn();
+  nextTurn(); // ★1回だけ呼ぶ
 }
 
 function nextTurn(){
