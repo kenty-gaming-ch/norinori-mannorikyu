@@ -38,7 +38,6 @@ function submitChar(){
 
   const input = document.getElementById("input");
   const char = input.value.trim();
-
   if(!char) return;
 
   game.phrase += char;
@@ -48,13 +47,11 @@ function submitChar(){
 
   render();
 
-  // ★ここが最重要
-  if(game.step >= 17){
-    finishGame();
-    return;
-  }
+  checkFinish(); // ★ここ必須
 
-  nextTurn();
+  if(game.step < 17){
+    nextTurn();
+  }
 }
 
 function nextTurn(){
