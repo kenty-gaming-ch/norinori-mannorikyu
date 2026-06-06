@@ -2,18 +2,21 @@ const AI_CHARS =
 "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん";
 
 function aiMove(){
-  console.log("AI TURN START", game.turn, game.step);
-  if(game.turn !== "ai") return;
 
-  if(game.step >= 17) return;
+  if(game.turn !== "ai") return;
 
   const ch =
     AI_CHARS[Math.floor(Math.random()*AI_CHARS.length)];
 
   game.phrase += ch;
-  game.step++; // ★必ずここ
-  console.log("AI AFTER MOVE", game.turn, game.step, game.phrase);
+  game.step++;
+
   render();
 
-  nextTurn(); // ★1回だけ呼ぶ
+  if(game.step >= 17){
+    finishGame();
+    return;
+  }
+
+  nextTurn();
 }
