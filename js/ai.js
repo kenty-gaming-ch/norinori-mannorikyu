@@ -3,6 +3,8 @@ const AI_CHARS =
 
 function aiMove(){
 
+  if(game.finished) return; // ★追加
+
   if(game.turn !== "ai") return;
 
   const ch =
@@ -13,7 +15,7 @@ function aiMove(){
 
   render();
 
-  checkFinish(); // ★ここ必須
+  checkFinish();
 
   if(game.step < 17){
     nextTurn();
