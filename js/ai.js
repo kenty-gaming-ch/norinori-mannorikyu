@@ -13,10 +13,9 @@ function aiMove(){
 
   render();
 
-  if(game.step >= 17){
-    finishGame();
-    return;
-  }
+  checkFinish(); // ★ここ必須
 
-  nextTurn();
+  if(game.step < 17){
+    nextTurn();
+  }
 }
