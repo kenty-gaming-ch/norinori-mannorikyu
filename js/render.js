@@ -22,19 +22,20 @@ function render() {
 }
 
 function drawKu(id, chars, max) {
-
   const el = document.getElementById(id);
 
-  let text = "";
+  let html = "";
 
   for (let i = 0; i < max; i++) {
 
-    if (chars[i]) {
-      text += chars[i];
-    } else {
-      text += "□";
-    }
+    const ch = chars[i] || "□";
+
+    html += `
+      <span class="char" style="animation-delay:${i * 0.08}s">
+        ${ch}
+      </span>
+    `;
   }
 
-  el.textContent = text;
+  el.innerHTML = html;
 }
