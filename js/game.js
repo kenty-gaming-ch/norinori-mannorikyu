@@ -61,20 +61,18 @@ function submitChar(){
 function nextTurn(){
 
   if(game.step >= 17){
-
     finishGame();
     return;
   }
 
   game.turn =
     game.turn === "player"
-    ? "ai"
-    : "player";
+      ? "ai"
+      : "player";
 
   setTurn();
 
   if(game.turn === "ai"){
-
     setTimeout(aiMove,500);
   }
 }
