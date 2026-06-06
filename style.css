@@ -145,6 +145,7 @@ button {
   align-items: center;
 
   transform: translateX(0); /* ★念のためズレ防止 */
+  margin: auto;
 }
 
 pre {
